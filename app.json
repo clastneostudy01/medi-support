@@ -1,0 +1,12 @@
+{
+  "name": "medi-support",
+  "displayName": "medi-support",
+  "expo": {
+    "name": "medi-support",
+    "slug": "medi-support",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
