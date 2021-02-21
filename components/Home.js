@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Text, View } from "react-native";
 import { ListItem, Avatar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import { Button, Overlay } from 'react-native-elements';
 
 import { LISTDATA } from '../shared/list';
 
@@ -27,7 +27,7 @@ const Home = ({navigation}) => {
       >
         {list.map((item, i) => (
           <ListItem
-            containerStyle={{ width: "80%" }}
+            containerStyle={{ width: "90%" }}
             key={i}
             onPress={() => {
               navigation.navigate("Details", { id: item.id });

@@ -11,8 +11,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./components/Home";
 // import MapByWebView from "./components/MapByWebView";
 import Medicine from "./components/Medicine";
-// import Details from "./components/Details";
-// import DrugInfo from "./components/DrugInfo";
+import Details from "./components/Details";
+import DrugInfo from "./components/DrugInfo";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -44,15 +44,50 @@ const screenOptions = ({ route }) => ({
   },
 });
 
+// const ListStack = createStackNavigator();
+const HomeStack = createStackNavigator();
+// const TaskStack = createStackNavigator();
+
+const HomeStackScreen = () => {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" component={Home} options={{title:"Home", headerTitleAlign:"center"}} />
+      <HomeStack.Screen name="Details" component={Details} options={{title:"Details", headerTitleAlign:"center"}}  />
+    </HomeStack.Navigator>
+  )
+}
+
+// const ListStackScreen = () => {
+//   return (
+//     <ListStack.Navigator>
+//       <ListStack.Screen name="List" component={List} options={{title:"List", headerTitleAlign:"center"}} />
+//       <ListStack.Screen name="Details" component={Details} options={{title:"Details", headerTitleAlign:"center"}}  />
+//     </ListStack.Navigator>
+//   )
+// }
+
+// const TaskStackScreen = () => {
+//   return (
+//     <TaskStack.Navigator>
+//       <TaskStack.Screen name="Tasks" component={Tasks} options={{title:"Tasks", headerTitleAlign:"center"}} />
+//       <TaskStack.Screen name="Details" component={Details} options={{title:"Details", headerTitleAlign:"center"}}  />
+//     </TaskStack.Navigator>
+//   )
+// }
+
+
+
+
+
 export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Tab.Navigator screenOptions={screenOptions}>
           <Tab.Screen name="Medicine" component={Medicine} />
-          {/* <Tab.Screen name="e약은요" component={DrugInfo}/>
-          <Tab.Screen name="약국지도" component={MapByWebView}/> */}
-          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="e약은요" component={DrugInfo}/>
+          {/* <Tab.Screen name="약국지도" component={MapByWebView}/> */}
+          <Tab.Screen name="Home" component={HomeStackScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
