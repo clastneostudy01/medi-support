@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -16,7 +16,6 @@ import DrugInfo from "./components/DrugInfo";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-
 const Tab = createBottomTabNavigator();
 
 const screenOptions = ({ route }) => ({
@@ -25,8 +24,8 @@ const screenOptions = ({ route }) => ({
 
     switch (route.name) {
       // focus가 있으면 'home', 'home-outline'
-      case "Home":
-        iconName = focused ? "home" : "home-outline";
+      case "기록":
+        iconName = focused ? "list" : "list-outline";
         break;
       case "e약은요":
         iconName = focused ? "globe" : "globe-outline";
@@ -34,7 +33,7 @@ const screenOptions = ({ route }) => ({
       case "약국지도":
         iconName = focused ? "map" : "map-outline";
         break;
-      case "Medicine":
+      case "통계":
         iconName = focused ? "medical" : "medical-outline";
         break;
     }
@@ -51,11 +50,19 @@ const HomeStack = createStackNavigator();
 const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={Home} options={{title:"Home", headerTitleAlign:"center"}} />
-      <HomeStack.Screen name="Details" component={Details} options={{title:"Details", headerTitleAlign:"center"}}  />
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{ title: "Home", headerTitleAlign: "center" }}
+      />
+      <HomeStack.Screen
+        name="Details"
+        component={Details}
+        options={{ title: "Details", headerTitleAlign: "center" }}
+      />
     </HomeStack.Navigator>
-  )
-}
+  );
+};
 
 // const ListStackScreen = () => {
 //   return (
@@ -75,26 +82,20 @@ const HomeStackScreen = () => {
 //   )
 // }
 
-
-
-
-
 export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Tab.Navigator screenOptions={screenOptions}>
-          <Tab.Screen name="Medicine" component={Medicine} />
-          <Tab.Screen name="e약은요" component={DrugInfo}/>
+          <Tab.Screen name="통계" component={Medicine} />
           {/* <Tab.Screen name="약국지도" component={MapByWebView}/> */}
-          <Tab.Screen name="Home" component={HomeStackScreen} />
+          <Tab.Screen name="기록" component={HomeStackScreen} />
+          <Tab.Screen name="e약은요" component={DrugInfo} />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
 }
-
-
 
 // export default function App() {
 //   return (

@@ -6,27 +6,23 @@ export const LISTDATA = [
     title: '복약',
     image: "https://picsum.photos/id/1/300/300",
     subtitle: '복약 기록창입니다',
-    type: 'drug',
-
-    description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
+    type: 'Drug',
+    description:'복약 기록창입니다. 아침, 점심, 저녁 버튼을 선택하여 오늘 복약 상황을 기록하세요.'
   },
   {
     id: 2,
     title: '증상',
     image: "https://picsum.photos/id/20/300/300",
     subtitle: '컨디션 기록창입니다',
-    type: 'drug',
-    
- 
-    description:'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'      
+    type: 'Condition',
+    description:'컨디션 기록창입니다. 아침, 점심, 저녁 버튼을 선택하여 오늘 컨디션 상황을 기록하세요.'
   },  
   {
     id: 3,
     title: '운동',
     image: "https://picsum.photos/id/200/300/300",
     subtitle: '운동 기록창입니다',
-    type: 'excercise',
-
-    description:'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur'      
+    type: 'Exercise',
+    description:'운동 기록창입니다. 아침, 점심, 저녁 버튼을 선택하여 오늘 운동 상황을 기록하세요.'
   },
 ]

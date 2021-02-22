@@ -17,32 +17,21 @@ const Details = ({ route, navigation }) => {
   const item = LISTDATA.filter((item) => item.id == id)[0];
 
   const [visible, setVisible] = useState(false);
+  const [time, setTime] = useState("");
 
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+  const timeSetting = (data) => {
+    setTime(data);
+  };
 
-  AsyncStorage.setItem(
-    "week_data",
-    JSON.stringify({
-      id: "",
-      date: moment().format("MM/DD"),
-      type: "",
-      time: "",
-      drug_morning: "",
-      drug_afternoon: "",
-      drug_evening: "",
-      condition_morning: "",
-      condition_afternoon: "",
-      condition_evening: "",
-      exercise_morning: "",
-      exercise_afternoon: "",
-      exercise_evening: "",
-    }),
-    () => {
-      console.log("저장완료");
-    }
-  );
+  // const statistics = {
+  //   "date": moment().format("MM/DD"),
+  //   "time": time,
+  //   "type": item.type,
+  //   "isTrue": true,
+  // };
 
   return (
     <View
@@ -58,18 +47,58 @@ const Details = ({ route, navigation }) => {
         <Card.Image source={{ uri: item.image }}></Card.Image>
         <Card.Divider />
         <Text style={{ marginBottom: 10 }}>{item.description}</Text>
-        <Button
-          onPress={toggleOverlay}
-          icon={<Icon name="checkmark" type="ionicon" color="#ffffff" />}
-          buttonStyle={{
-            borderRadius: 0,
-            marginLeft: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            backgroundColor: "tomato",
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            // alignItems: "center"
           }}
-          title="OverLay"
-        />
+        >
+          <Button
+            onPress={() => {
+              toggleOverlay();
+              timeSetting("Morning");
+            }}
+            buttonStyle={{
+              borderRadius: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 0,
+              backgroundColor: "tomato",
+            }}
+            title="Morning"
+          />
+          <Card.Divider />
+          <Button
+            onPress={() => {
+              toggleOverlay();
+              timeSetting("Afternoon");
+            }}
+            buttonStyle={{
+              borderRadius: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 0,
+              backgroundColor: "tomato",
+            }}
+            title="Afternoon"
+          />
+          <Card.Divider />
+          <Button
+            onPress={() => {
+              toggleOverlay();
+              timeSetting("Evening");
+            }}
+            buttonStyle={{
+              borderRadius: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 0,
+              backgroundColor: "tomato",
+            }}
+            title="Evening"
+          />
+        </View>
 
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
           <View
@@ -88,18 +117,31 @@ const Details = ({ route, navigation }) => {
             >
               <TouchableOpacity
                 style={{ backgroundColor: "red" }}
-                onPress={() =>
+                onPress={() => {
                   AsyncStorage.setItem(
-                    "week_data",
+                    moment().format("MM/DD") + time + item.type,
                     JSON.stringify({
                       date: moment().format("MM/DD"),
+                      time: time,
                       type: item.type,
+                      isTrue: 1,
+                      id: moment().format("MM/DD") + time + item.type,
                     }),
                     () => {
-                      console.log("저장완료");
+                      console.log(
+                        AsyncStorage.getItem(moment().format("MM/DD") + time + item.type, (err, result) => {
+                          try {
+                            const week = JSON.parse(result);
+                            console.log(week);
+                          } catch (e) {
+                            console.error(e);
+                          }
+                        })
+                      );
                     }
-                  )
-                }
+                  );
+                  toggleOverlay();
+                }}
               >
                 <Text style={{ width: 100, fontSize: 30, textAlign: "center" }}>
                   YES
@@ -108,32 +150,42 @@ const Details = ({ route, navigation }) => {
 
               <TouchableOpacity
                 style={{ backgroundColor: "green" }}
-                onPress={() =>
+                onPress={() => {
                   AsyncStorage.setItem(
-                    "week_data",
+                    moment().format("MM/DD") + time + item.type,
                     JSON.stringify({
                       date: moment().format("MM/DD"),
+                      time: time,
                       type: item.type,
+                      isTrue: 0,
+                      id: moment().format("MM/DD") + time + item.type,
                     }),
                     () => {
                       console.log(
-                      AsyncStorage.getItem("week_data", (err, result) => {
-                        try {
-                          const week = Json.parse(result);
-                          console.log(week);
-                        } catch (e) {
-                          console.error(e);
-                        }
-                      }));
+                        AsyncStorage.getItem(moment().format("MM/DD") + time + item.type, (err, result) => {
+                          try {
+                            const week = JSON.parse(result);
+                            console.log(week);
+                          } catch (e) {
+                            console.error(e);
+                          }
+                        })
+                      );
                     }
-                  )
-                }
+                  );
+                  toggleOverlay();
+                }}
               >
                 <Text style={{ width: 100, fontSize: 30, textAlign: "center" }}>
                   NO
                 </Text>
               </TouchableOpacity>
             </View>
+            {/* <TouchableOpacity
+            onPress={() => AsyncStorage.clear()}
+              >
+              <Text>초기화</Text>
+            </TouchableOpacity> */}
           </View>
         </Overlay>
       </Card>

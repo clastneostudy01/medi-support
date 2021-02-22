@@ -12,37 +12,53 @@ import { setStatusBarBackgroundColor } from "expo-status-bar";
 import { useLinkProps } from "@react-navigation/native";
 
 export const weekDate = [];
-for (let i = 7; i > 0; i--) {
-  weekDate.push(
-    { date: moment().subtract(i, "days").format("MM/DD") }
-  );
+for (let i = 6; i >= 0; i--) {
+  weekDate.push({ date: moment().subtract(i, "days").format("MM/DD") });
 }
 console.log(weekDate);
+
+AsyncStorage.getItem("02/22EveningDrug", (err, result) => {
+  try {
+    const week = JSON.parse(result);
+    console.log(week);
+  } catch (e) {
+    console.error(e);
+  }
+});
 
 const Icons = (props) => {
   const [color, setColor] = useState("black");
   const counter = useRef(0);
-
   return (
     <MaterialCommunityIcons
       name={props.iconName}
+      date={props.date}
+      time={props.time}
+      type={props.type}
       style={{ color }}
       size={50}
       onPress={() => {
-
-        counter.current = counter.current + 1;
-        if (counter.current === 4) {
-          counter.current = 0;
-        }
+        AsyncStorage.getItem(
+          "{parse props.date + props.time + props.type}",
+          (err, result) => {
+            try {
+              console.log(props.date)
+              const week = JSON.parse(result);
+              console.log(week);
+            } catch (e) {
+              console.error(e);
+            }
+          }
+        );
 
         switch (counter.current) {
-          case 1:
+          case 0:
             setColor("red");
             break;
-          case 2:
-            setColor("orange");
-            break;
-          case 3:
+          // case 2:
+          //   setColor("orange");
+          //   break;
+          case 1:
             setColor("green");
             break;
           default:
@@ -51,7 +67,6 @@ const Icons = (props) => {
         }
         // console.log(counter.current);
       }}
-
     />
   );
 };
@@ -77,14 +92,56 @@ const OneWeekIconContents = (props) => {
     },
   });
 
+  // counter={AsyncStorage.getItem(
+  //   `"${week.date+"Morning"+props.type}"`,
+  //   (err, result) => {
+  //     try {
+  //       if(result===null){
+  //         return 0;
+  //       }
+  //       const week = JSON.parse(result);
+  //       console.log(week.isTrue);
+  //       return week.isTrue;
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   }
+  // )}
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
         {weekDate.map((week) => (
           <View style={{ flex: 1 }} key={week.date}>
-            <Text style={{ fontSize: 16, textAlign: "center" }}>{week.date}</Text>
+            <Text style={{ fontSize: 17, textAlign: "center" }}>
+              {week.date}
+            </Text>
             <View>
-              <Icons iconName={props.iconName} />
+              <Text style={{ textAlign: "center" }}>아침</Text>
+              <Icons
+                iconName={props.iconName}
+                date={props.date}
+                time={props.time}
+                type={props.type}
+              />
+            </View>
+            <View>
+              <Text style={{ textAlign: "center" }}>점심</Text>
+              <Icons
+                iconName={props.iconName}
+                date={props.date}
+                time={props.time}
+                type={props.type}
+              />
+            </View>
+            <View>
+              <Text style={{ textAlign: "center" }}>저녁</Text>
+              <Icons
+                iconName={props.iconName}
+                date={props.date}
+                time={props.time}
+                type={props.type}
+              />
             </View>
           </View>
         ))}
@@ -117,9 +174,13 @@ const Medicine = () => {
   return (
     <View>
       <ScrollView>
-        <CardView title={"복약"} iconName={"pill"} />
-        <CardView title={"컨디션"} iconName={"hospital-box-outline"} />
-        <CardView title={"운동"} iconName={"run"} />
+        <CardView title={"복약"} iconName={"pill"} type={"Drug"} />
+        <CardView
+          title={"컨디션"}
+          iconName={"hospital-box-outline"}
+          type={"Condition"}
+        />
+        <CardView title={"운동"} iconName={"run"} type={"Exercise"} />
       </ScrollView>
     </View>
   );
