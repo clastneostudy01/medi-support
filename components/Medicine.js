@@ -38,18 +38,24 @@ const Icons = (props) => {
       style={{ color }}
       size={50}
       onPress={() => {
-        AsyncStorage.getItem(
-          "{parse props.date + props.time + props.type}",
-          (err, result) => {
-            try {
-              console.log(props.date)
-              const week = JSON.parse(result);
-              console.log(week);
-            } catch (e) {
-              console.error(e);
-            }
-          }
-        );
+        // AsyncStorage.getItem(
+        //   "{parse props.date + props.time + props.type}",
+        //   (err, result) => {
+        //     try {
+        //       console.log(props.date)
+        //       const week = JSON.parse(result);
+        //       console.log(week);
+        //     } catch (e) {
+        //       console.error(e);
+        //     }
+        //   }
+        // );
+
+        
+        counter.current = counter.current += 1
+        if (counter.current===2){
+          counter.current=0;
+        }
 
         switch (counter.current) {
           case 0:
