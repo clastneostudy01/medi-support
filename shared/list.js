@@ -1,5 +1,3 @@
-import DrugInfo from "../components/DrugInfo";
-
 export const LISTDATA = [
   {
     id: 1,
