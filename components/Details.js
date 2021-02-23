@@ -116,27 +116,33 @@ const Details = ({ route, navigation }) => {
               }}
             >
               <TouchableOpacity
-                style={{ backgroundColor: "red" }}
+                style={{ backgroundColor: "green" }}
                 onPress={() => {
                   AsyncStorage.setItem(
-                    moment().format("MM/DD") + time + item.type,
+                    moment().format("MM/DD") + "_" + time + "_" + item.type,
                     JSON.stringify({
                       date: moment().format("MM/DD"),
                       time: time,
                       type: item.type,
                       isTrue: 1,
-                      id: moment().format("MM/DD") + time + item.type,
                     }),
                     () => {
                       console.log(
-                        AsyncStorage.getItem(moment().format("MM/DD") + time + item.type, (err, result) => {
-                          try {
-                            const week = JSON.parse(result);
-                            console.log(week);
-                          } catch (e) {
-                            console.error(e);
+                        AsyncStorage.getItem(
+                          moment().format("MM/DD") +
+                            "_" +
+                            time +
+                            "_" +
+                            item.type,
+                          (err, result) => {
+                            try {
+                              const week = JSON.parse(result);
+                              console.log(week);
+                            } catch (e) {
+                              console.error(e);
+                            }
                           }
-                        })
+                        )
                       );
                     }
                   );
@@ -149,27 +155,29 @@ const Details = ({ route, navigation }) => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={{ backgroundColor: "green" }}
+                style={{ backgroundColor: "red" }}
                 onPress={() => {
                   AsyncStorage.setItem(
-                    moment().format("MM/DD") + time + item.type,
+                    moment().format("MM/DD") + "_" + time + "_" + item.type,
                     JSON.stringify({
                       date: moment().format("MM/DD"),
                       time: time,
                       type: item.type,
                       isTrue: 0,
-                      id: moment().format("MM/DD") + time + item.type,
                     }),
                     () => {
                       console.log(
-                        AsyncStorage.getItem(moment().format("MM/DD") + time + item.type, (err, result) => {
-                          try {
-                            const week = JSON.parse(result);
-                            console.log(week);
-                          } catch (e) {
-                            console.error(e);
+                        AsyncStorage.getItem(
+                          moment().format("MM/DD") + "_" + time + "_" + item.type,
+                          (err, result) => {
+                            try {
+                              const week = JSON.parse(result);
+                              console.log(week);
+                            } catch (e) {
+                              console.error(e);
+                            }
                           }
-                        })
+                        )
                       );
                     }
                   );
@@ -181,16 +189,58 @@ const Details = ({ route, navigation }) => {
                 </Text>
               </TouchableOpacity>
             </View>
-            {/* <TouchableOpacity
-            onPress={() => AsyncStorage.clear()}
-              >
+
+            <TouchableOpacity
+              onPress={() => {
+                AsyncStorage.getAllKeys((error, keys) => {
+                  if (!error) {
+                    AsyncStorage.multiGet(keys, (error, stores) => {
+                      if (!error) {
+                        stores.map((result, i, store) => {
+                          let key = store[i][0];
+                          let value = store[i][1];
+
+                          console.log("key: " + key);
+                          console.log("value: " + value);
+                        });
+                      } else {
+                        console.log(error);
+                      }
+                    });
+                  } else {
+                    console.log(error);
+                  }
+                });
+              }}
+            >
+              <Text>전체 조회</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                AsyncStorage.clear();
+                console.log("cleared");
+              }}
+            >
               <Text>초기화</Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </Overlay>
       </Card>
     </View>
   );
 };
+
+// 전체 키와 값을 한번에 가져오기
+// AsyncStorage.getAllKeys((error, keys) => {
+//   if (!error) {
+//     AsyncStorage.multiGet(keys, (error, stores) => {
+//       for (let n in stores) {
+//         let key = store[i][0];
+//         let value = store[i][1];
+//       }
+//     });
+//   }
+// });
 
 export default Details;

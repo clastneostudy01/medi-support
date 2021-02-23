@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Card } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView, State } from "react-native-gesture-handler";
@@ -15,64 +15,33 @@ export const weekDate = [];
 for (let i = 6; i >= 0; i--) {
   weekDate.push({ date: moment().subtract(i, "days").format("MM/DD") });
 }
-console.log(weekDate);
-
-AsyncStorage.getItem("02/22EveningDrug", (err, result) => {
-  try {
-    const week = JSON.parse(result);
-    console.log(week);
-  } catch (e) {
-    console.error(e);
-  }
-});
 
 const Icons = (props) => {
   const [color, setColor] = useState("black");
-  const counter = useRef(0);
+
+  const returnData = useCallback(async() => {
+    const key = props.date + "_" + props.time + "_" + props.type;
+    console.log(key);
+    const data = await AsyncStorage.getItem(key);
+    if (data === null) {
+      console.log("data is null");
+      setColor("black");
+    } else {
+      console.log(data);
+      const medicine = JSON.parse(data);
+      setColor(medicine.isTrue ? "green" : "red");
+    }
+  }, []);
+
+  useEffect(()=>{
+    returnData();
+  }, [])
+
   return (
     <MaterialCommunityIcons
       name={props.iconName}
-      date={props.date}
-      time={props.time}
-      type={props.type}
       style={{ color }}
       size={50}
-      onPress={() => {
-        // AsyncStorage.getItem(
-        //   "{parse props.date + props.time + props.type}",
-        //   (err, result) => {
-        //     try {
-        //       console.log(props.date)
-        //       const week = JSON.parse(result);
-        //       console.log(week);
-        //     } catch (e) {
-        //       console.error(e);
-        //     }
-        //   }
-        // );
-
-        
-        counter.current = counter.current += 1
-        if (counter.current===2){
-          counter.current=0;
-        }
-
-        switch (counter.current) {
-          case 0:
-            setColor("red");
-            break;
-          // case 2:
-          //   setColor("orange");
-          //   break;
-          case 1:
-            setColor("green");
-            break;
-          default:
-            setColor("black");
-            break;
-        }
-        // console.log(counter.current);
-      }}
     />
   );
 };
@@ -98,22 +67,6 @@ const OneWeekIconContents = (props) => {
     },
   });
 
-  // counter={AsyncStorage.getItem(
-  //   `"${week.date+"Morning"+props.type}"`,
-  //   (err, result) => {
-  //     try {
-  //       if(result===null){
-  //         return 0;
-  //       }
-  //       const week = JSON.parse(result);
-  //       console.log(week.isTrue);
-  //       return week.isTrue;
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   }
-  // )}
-
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
@@ -126,28 +79,26 @@ const OneWeekIconContents = (props) => {
               <Text style={{ textAlign: "center" }}>아침</Text>
               <Icons
                 iconName={props.iconName}
-                date={props.date}
-                time={props.time}
+                date={week.date}
+                time={"Morning"}
                 type={props.type}
               />
             </View>
             <View>
               <Text style={{ textAlign: "center" }}>점심</Text>
               <Icons
-                iconName={props.iconName}
-                date={props.date}
-                time={props.time}
-                type={props.type}
-              />
+              iconName={props.iconName}
+              date={week.date}
+              time={"Afternoon"}
+              type={props.type} />
             </View>
             <View>
               <Text style={{ textAlign: "center" }}>저녁</Text>
               <Icons
-                iconName={props.iconName}
-                date={props.date}
-                time={props.time}
-                type={props.type}
-              />
+              iconName={props.iconName}
+              date={week.date}
+              time={"Evening"}
+              type={props.type} />
             </View>
           </View>
         ))}
@@ -169,7 +120,7 @@ const CardView = (props) => {
             alignItems: "center",
           }}
         >
-          <OneWeekIconContents iconName={props.iconName} />
+          <OneWeekIconContents iconName={props.iconName} type={props.type} />
         </View>
       </Card>
     </View>
