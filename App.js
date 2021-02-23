@@ -16,6 +16,13 @@ import DrugInfo from "./components/DrugInfo";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+import rootReducer from "./redux/reducers";
+
+const store = createStore(rootReducer)
+
 const Tab = createBottomTabNavigator();
 
 const screenOptions = ({ route }) => ({
@@ -84,16 +91,18 @@ const HomeStackScreen = () => {
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={screenOptions}>
-          <Tab.Screen name="통계" component={Medicine} />
-          {/* <Tab.Screen name="약국지도" component={MapByWebView}/> */}
-          <Tab.Screen name="기록" component={HomeStackScreen} />
-          <Tab.Screen name="e약은요" component={DrugInfo} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={screenOptions}>
+            <Tab.Screen name="기록" component={HomeStackScreen} />
+            <Tab.Screen name="통계" component={Medicine} />
+            {/* <Tab.Screen name="약국지도" component={MapByWebView}/> */}
+            <Tab.Screen name="e약은요" component={DrugInfo} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 

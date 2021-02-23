@@ -128,6 +128,9 @@ const CardView = (props) => {
 };
 
 const Medicine = () => {
+  const tasks = useSelector(state => state.tasks);
+  console.log(tasks)
+
   return (
     <View>
       <ScrollView>

@@ -7,8 +7,8 @@ import "moment/locale/ko";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// import { useDispatch, useSelector } from 'react-redux'
-// import { addTask, removeTask } from '../redux/actions/tasks'
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, removeTask } from "../redux/actions/tasks";
 
 import { LISTDATA } from "../shared/list";
 
@@ -26,12 +26,13 @@ const Details = ({ route, navigation }) => {
     setTime(data);
   };
 
-  // const statistics = {
-  //   "date": moment().format("MM/DD"),
-  //   "time": time,
-  //   "type": item.type,
-  //   "isTrue": true,
-  // };
+  // ====================Redux 환경 구축=========================== //
+  const dispatch = useDispatch();
+  const tasks = useSelector(state => state.tasks);
+  
+  const isUpdatedTask = tasks.filter(item => item.key).length > 0 ? true : false;
+  console.log(isUpdatedTask);
+
 
   return (
     <View
@@ -118,6 +119,9 @@ const Details = ({ route, navigation }) => {
               <TouchableOpacity
                 style={{ backgroundColor: "green" }}
                 onPress={() => {
+
+                  dispatch(addTask(item));
+
                   AsyncStorage.setItem(
                     moment().format("MM/DD") + "_" + time + "_" + item.type,
                     JSON.stringify({
@@ -157,6 +161,9 @@ const Details = ({ route, navigation }) => {
               <TouchableOpacity
                 style={{ backgroundColor: "red" }}
                 onPress={() => {
+
+                  dispatch(removeTask(item));
+
                   AsyncStorage.setItem(
                     moment().format("MM/DD") + "_" + time + "_" + item.type,
                     JSON.stringify({
@@ -168,7 +175,11 @@ const Details = ({ route, navigation }) => {
                     () => {
                       console.log(
                         AsyncStorage.getItem(
-                          moment().format("MM/DD") + "_" + time + "_" + item.type,
+                          moment().format("MM/DD") +
+                            "_" +
+                            time +
+                            "_" +
+                            item.type,
                           (err, result) => {
                             try {
                               const week = JSON.parse(result);
@@ -190,7 +201,7 @@ const Details = ({ route, navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 AsyncStorage.getAllKeys((error, keys) => {
                   if (!error) {
@@ -214,33 +225,21 @@ const Details = ({ route, navigation }) => {
               }}
             >
               <Text>전체 조회</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 AsyncStorage.clear();
                 console.log("cleared");
               }}
             >
               <Text>초기화</Text>
-            </TouchableOpacity>
+S            </TouchableOpacity> */}
           </View>
         </Overlay>
       </Card>
     </View>
   );
 };
-
-// 전체 키와 값을 한번에 가져오기
-// AsyncStorage.getAllKeys((error, keys) => {
-//   if (!error) {
-//     AsyncStorage.multiGet(keys, (error, stores) => {
-//       for (let n in stores) {
-//         let key = store[i][0];
-//         let value = store[i][1];
-//       }
-//     });
-//   }
-// });
 
 export default Details;
