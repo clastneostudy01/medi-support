@@ -131,7 +131,17 @@ const CardView = (props) => {
 
 const Medicine = () => {
   // Redux 사용 위한 부분
-  const tasks = useSelector(state => state.tasks);
+  
+  // useCallback과 useEffect를 활용하여 최초 렌더링시에 데이터 수령하여 로딩
+  const returnTask = useCallback(async() => {
+    const tasks = await useSelector(state => state.tasks);
+    return tasks;
+  })
+
+  useEffect(()=>{
+    returnTask();
+  }, [])
+
   console.log("useSelector로 넘겨받은 tasks")
   console.log(tasks)
 

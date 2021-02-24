@@ -45,21 +45,27 @@
 // dispatch를 손대는 부분의 현재의 item데이터는 list.js에서 불러오는 데이터. 이 데이터에 손을 대봤자 아무런 의미가 없는데.
 
 
+import {DATABOX} from '../../shared/weeklydata'
 
 
 
 
-
-const tasks = (state = [], action) => {
+const tasks = (state = DATABOX, action) => {
   switch (action.type) {
     case 'ADD_TASK':
+      
       return [
-        ...state, 
+        ...state,
+        console.log(...state),
         {
           ...action.payload
         }
       ]
-    case 'REMOVE_TASK':
+    case 'FETCH_TASKS_SUCCEEDED':
+      return [
+        ...action.payload
+      ]    
+      case 'REMOVE_TASK':
       return [
         ...state.filter(item => item.id != action.payload)
       ]

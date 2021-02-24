@@ -30,10 +30,16 @@ const Details = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const tasks = useSelector(state => state.tasks);
   
+  // const isUpdatedTask = tasks.filter(item => item.key).length > 0 ? true : false;
+  // console.log(isUpdatedTask);
 
 
-  const isUpdatedTask = tasks.filter(item => item.key).length > 0 ? true : false;
-  console.log(isUpdatedTask);
+  // {
+  //   date: moment().format("MM/DD"),
+  //   time: time,
+  //   type: item.type,
+  //   isTrue: 1,
+  // }
 
   return (
     <View
@@ -120,45 +126,7 @@ const Details = ({ route, navigation }) => {
               <TouchableOpacity
                 style={{ backgroundColor: "green" }}
                 onPress={() => {
-
-                  dispatch(addTask(
-                    AsyncStorage.getItem(moment().format("MM/DD")+"_"+time+"_"+item.type, (err, result) => {
-                      try {
-                        const week = JSON.parse(result);
-                        return week;
-                        // console.log(week);
-                      } catch (e) {
-                        console.error(e);
-                      }})));
-
-                  AsyncStorage.setItem(
-                    moment().format("MM/DD") + "_" + time + "_" + item.type,
-                    JSON.stringify({
-                      date: moment().format("MM/DD"),
-                      time: time,
-                      type: item.type,
-                      isTrue: 1,
-                    }),
-                    // () => {
-                    //   console.log(
-                    //     AsyncStorage.getItem(
-                    //       moment().format("MM/DD") +
-                    //         "_" +
-                    //         time +
-                    //         "_" +
-                    //         item.type,
-                    //       (err, result) => {
-                    //         try {
-                    //           const week = JSON.parse(result);
-                    //           console.log(week);
-                    //         } catch (e) {
-                    //           console.error(e);
-                    //         }
-                    //       }
-                    //     )
-                    //   );
-                    // }
-                  );
+                  dispatch(addTask(data));
                   toggleOverlay();
                 }}
               >
