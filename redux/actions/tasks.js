@@ -1,11 +1,11 @@
-export const addTask = payload => (
-  {
-   type: 'ADD_TASK',
-    payload
-  }
-)
+// 액션 생성 함수
 
-export const removeTask = payload => ({
-  type: 'REMOVE_TASK',
-  payload
-})
+export const addTask = ((payload) => ({
+  type: "ADD_TASK",
+  payload,
+}));
+
+export const removeTask = ((payload) => ({
+  type: "REMOVE_TASK",
+  payload,
+}));

@@ -8,6 +8,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import "moment/locale/ko";
 
+import { useDispatch, useSelector } from 'react-redux'
+
 import { setStatusBarBackgroundColor } from "expo-status-bar";
 import { useLinkProps } from "@react-navigation/native";
 
@@ -21,13 +23,13 @@ const Icons = (props) => {
 
   const returnData = useCallback(async() => {
     const key = props.date + "_" + props.time + "_" + props.type;
-    console.log(key);
+    // console.log(key);
     const data = await AsyncStorage.getItem(key);
     if (data === null) {
-      console.log("data is null");
+      // console.log("data is null");
       setColor("black");
     } else {
-      console.log(data);
+      // console.log(data);
       const medicine = JSON.parse(data);
       setColor(medicine.isTrue ? "green" : "red");
     }
@@ -128,8 +130,14 @@ const CardView = (props) => {
 };
 
 const Medicine = () => {
+  // Redux 사용 위한 부분
   const tasks = useSelector(state => state.tasks);
+  console.log("useSelector로 넘겨받은 tasks")
   console.log(tasks)
+
+  // 현재 key라는 변수가 정의되지 않음.
+  // const isExistTask = tasks.filter(item => item.key == key).length > 0 ? true : false;
+  // console.log(isExistTask)
 
   return (
     <View>

@@ -30,9 +30,10 @@ const Details = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const tasks = useSelector(state => state.tasks);
   
+
+
   const isUpdatedTask = tasks.filter(item => item.key).length > 0 ? true : false;
   console.log(isUpdatedTask);
-
 
   return (
     <View
@@ -120,7 +121,15 @@ const Details = ({ route, navigation }) => {
                 style={{ backgroundColor: "green" }}
                 onPress={() => {
 
-                  dispatch(addTask(item));
+                  dispatch(addTask(
+                    AsyncStorage.getItem(moment().format("MM/DD")+"_"+time+"_"+item.type, (err, result) => {
+                      try {
+                        const week = JSON.parse(result);
+                        return week;
+                        // console.log(week);
+                      } catch (e) {
+                        console.error(e);
+                      }})));
 
                   AsyncStorage.setItem(
                     moment().format("MM/DD") + "_" + time + "_" + item.type,
@@ -130,25 +139,25 @@ const Details = ({ route, navigation }) => {
                       type: item.type,
                       isTrue: 1,
                     }),
-                    () => {
-                      console.log(
-                        AsyncStorage.getItem(
-                          moment().format("MM/DD") +
-                            "_" +
-                            time +
-                            "_" +
-                            item.type,
-                          (err, result) => {
-                            try {
-                              const week = JSON.parse(result);
-                              console.log(week);
-                            } catch (e) {
-                              console.error(e);
-                            }
-                          }
-                        )
-                      );
-                    }
+                    // () => {
+                    //   console.log(
+                    //     AsyncStorage.getItem(
+                    //       moment().format("MM/DD") +
+                    //         "_" +
+                    //         time +
+                    //         "_" +
+                    //         item.type,
+                    //       (err, result) => {
+                    //         try {
+                    //           const week = JSON.parse(result);
+                    //           console.log(week);
+                    //         } catch (e) {
+                    //           console.error(e);
+                    //         }
+                    //       }
+                    //     )
+                    //   );
+                    // }
                   );
                   toggleOverlay();
                 }}
@@ -162,7 +171,16 @@ const Details = ({ route, navigation }) => {
                 style={{ backgroundColor: "red" }}
                 onPress={() => {
 
-                  dispatch(removeTask(item));
+                  dispatch(removeTask(
+                    AsyncStorage.getItem(moment().format("MM/DD")+"_"+time+"_"+item.type, (err, result) => {
+                      try {
+                        const week = JSON.parse(result);
+                        return week;
+                        // console.log(week);
+                      } catch (e) {
+                        console.error(e);
+                      }})
+                  ));
 
                   AsyncStorage.setItem(
                     moment().format("MM/DD") + "_" + time + "_" + item.type,
@@ -172,25 +190,25 @@ const Details = ({ route, navigation }) => {
                       type: item.type,
                       isTrue: 0,
                     }),
-                    () => {
-                      console.log(
-                        AsyncStorage.getItem(
-                          moment().format("MM/DD") +
-                            "_" +
-                            time +
-                            "_" +
-                            item.type,
-                          (err, result) => {
-                            try {
-                              const week = JSON.parse(result);
-                              console.log(week);
-                            } catch (e) {
-                              console.error(e);
-                            }
-                          }
-                        )
-                      );
-                    }
+                    // () => {
+                    //   console.log(
+                    //     AsyncStorage.getItem(
+                    //       moment().format("MM/DD") +
+                    //         "_" +
+                    //         time +
+                    //         "_" +
+                    //         item.type,
+                    //       (err, result) => {
+                    //         try {
+                    //           const week = JSON.parse(result);
+                    //           console.log(week);
+                    //         } catch (e) {
+                    //           console.error(e);
+                    //         }
+                    //       }
+                    //     )
+                    //   );
+                    // }
                   );
                   toggleOverlay();
                 }}
