@@ -41,12 +41,19 @@
 // 현재 데이터를 저장하는 구조 [[key, {...value}],[key, {...value}],[key, {...value}], ...]는 그대로 활용할 수 있는지, 안된다면 어떻게 바꿔야 하는지?
 
 // dispatch를 손대는 부분의 현재의 item데이터는 list.js에서 불러오는 데이터. 이 데이터에 손을 대봤자 아무런 의미가 없는데.
+import api from '../../api/list';
+import { apisAreAvailable } from "expo";
+import { SectionList } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+// import { DATABOX } from "../../shared/weeklydata";
+// import DATABOX from 
 
-import { DATABOX } from "../../shared/weeklydata";
+  const dataBox = api.list();
+  console.log(dataBox.data);
 
-const tasks = (state = DATABOX, action) => {
+const tasks = (state = dataBox, action) => {
   switch (action.type) {
-    case "ADD_TASK":
+    case "ADD_TASK_SUCCEEDED":
       console.log("--ADD_TASK--");
       console.log(...state, {...action.payload}[0]);
       return [
@@ -55,8 +62,8 @@ const tasks = (state = DATABOX, action) => {
           ...action.payload,
         }[0],
       ];
-    case "UNDONE_TASK":
-      console.log("--UNDONE_TASK--");
+    case "UNDONE_TASK_SUCCEEDED":
+      console.log("--UNDONE_TASK_SUCCEEDED--");
       console.log(action.payload);
       return state.map((item)=> {
           if(item.date == action.payload.date 
@@ -79,8 +86,11 @@ const tasks = (state = DATABOX, action) => {
       //   }[0]
       // ];
     case "FETCH_TASKS_SUCCEEDED":
+      console.log("FETCH_TASKS_SUCCEEDED")
       console.log(...action.payload);
       return [...action.payload];
+
+
     case "REMOVE_TASK":
       return [...state.filter((item) => item.id != action.payload)];
     default:

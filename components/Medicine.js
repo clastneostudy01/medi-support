@@ -22,12 +22,15 @@ const Icons = ({stateBox, iconName}) => {
   const color = stateBox.length == 0 ? "black" : (stateBox[0].isTrue ? "green" : 'red');
 
   return (
-    <MaterialCommunityIcons name={iconName} style={{ color }} size={50} onPress={() => console.log(props)} />
+    <MaterialCommunityIcons name={iconName} style={{ color }} size={50} onPress={() => console.log(stateBox)} />
   );
 };
 
 const OneWeekIconContents = ({iconName, type}) => {
 
+
+  // stateBox에 데이터가 입력되고, 이것 자체가 state로 동작함.
+  // stateBox에 변화가 생기면 전역적으로 상태가 공유.
   const stateBox = useSelector(state => 
     state.tasks.filter(item=>item.type == type)
   );
