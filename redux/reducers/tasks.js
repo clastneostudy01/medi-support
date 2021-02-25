@@ -64,9 +64,10 @@ const tasks = (state = DATABOX, action) => {
               && item.type == action.payload.type){
             item.isTrue = 0
 
-            console.log('--existed item--')
+            console.log('--exist item--')
             return item;
           } else {
+            
             return item;
           }
         })

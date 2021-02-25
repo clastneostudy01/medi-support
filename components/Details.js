@@ -30,17 +30,6 @@ const Details = ({ route, navigation }) => {
 
   // ====================Redux 환경 구축=========================== //
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.tasks);
-
-  // const isUpdatedTask = tasks.filter(item => item.key).length > 0 ? true : false;
-  // console.log(isUpdatedTask);
-
-  // {
-  //   date: moment().format("MM/DD"),
-  //   time: time,
-  //   type: item.type,
-  //   isTrue: 1,
-  // }
 
   return (
     <View

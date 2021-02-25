@@ -19,9 +19,6 @@ for (let i = 6; i >= 0; i--) {
 }
 
 const Icons = ({stateBox, iconName}) => {
-  // console.log("--icon stateBox--")
-  // console.log(stateBox)
-
   const color = stateBox.length == 0 ? "black" : (stateBox[0].isTrue ? "green" : 'red');
 
   return (
@@ -34,8 +31,6 @@ const OneWeekIconContents = ({iconName, type}) => {
   const stateBox = useSelector(state => 
     state.tasks.filter(item=>item.type == type)
   );
-  // console.log(`--stateBox(${type})--`)
-  // console.log(stateBox)
 
   const styles = StyleSheet.create({
     container: {
@@ -123,26 +118,6 @@ const CardView = ({title, type, iconName}) => {
 };
 
 const Medicine = () => {
-
-  // const stateBox = useSelector(state => state.tasks);
-  // console.log("--stateBox--")
-  // console.log(stateBox)
-  // Redux 사용 위한 부분
-
-  // useCallback과 useEffect를 활용하여 최초 렌더링시에 데이터 수령하여 로딩
-  // const returnTask = useCallback(async() => {
-  //   const tasks = await useSelector(state => state.tasks);
-  //   return tasks;
-  // })
-
-  // useEffect(()=>{
-  //   returnTask();
-  // }, [])
-
-  // 현재 key라는 변수가 정의되지 않음.
-  // const isExistTask = tasks.filter(item => item.key == key).length > 0 ? true : false;
-  // console.log(isExistTask)
-
   return (
     <View>
       <ScrollView>
