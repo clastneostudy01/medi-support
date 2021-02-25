@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,6 +12,8 @@ import Details from "./Details";
 import DrugInfo from "./DrugInfo";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
+
+import { useDispatch } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
@@ -57,6 +59,13 @@ const HomeStackScreen = () => {
 };
 
 export default function Main() {
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    console.log("--main is mounted--");
+    dispatch({type:"FETCH_TASKS"})
+  }, [])
+
   return (
       <SafeAreaProvider>
         <NavigationContainer>

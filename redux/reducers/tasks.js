@@ -56,6 +56,7 @@ const tasks = (state = DATABOX, action) => {
       
       return [
         ...state,
+        console.log("--ADD_TASK--"),
         console.log(...state),
         {
           ...action.payload
@@ -63,7 +64,8 @@ const tasks = (state = DATABOX, action) => {
       ]
     case 'FETCH_TASKS_SUCCEEDED':
       return [
-        ...action.payload
+        ...action.payload,
+        console.log(...action.payload)        
       ]    
       case 'REMOVE_TASK':
       return [

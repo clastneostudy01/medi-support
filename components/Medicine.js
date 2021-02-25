@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import "moment/locale/ko";
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 
 import { setStatusBarBackgroundColor } from "expo-status-bar";
 import { useLinkProps } from "@react-navigation/native";
@@ -21,30 +21,47 @@ for (let i = 6; i >= 0; i--) {
 const Icons = (props) => {
   const [color, setColor] = useState("black");
 
-  const returnData = useCallback(async() => {
-    const key = props.date + "_" + props.time + "_" + props.type;
-    // console.log(key);
-    const data = await AsyncStorage.getItem(key);
-    if (data === null) {
-      // console.log("data is null");
+  const tasks = useSelector((state) => state.tasks);
+
+  const colorSetting = useCallback(async () => {
+    const tasksBox = {
+      ...tasks.filter(
+        (item) =>
+          item.date == props.date &&
+          item.time == props.time &&
+          item.type == props.type
+      )[0],
+    };
+    console.log("tasksBox");
+    console.log(tasksBox);
+    console.log(tasksBox.length);
+
+    if (tasksBox.isTrue === undefined) {
+      console.log("---Color data---");
       setColor("black");
     } else {
-      // console.log(data);
-      const medicine = JSON.parse(data);
-      setColor(medicine.isTrue ? "green" : "red");
+      console.log("---...tasks---");
+      setColor(tasksBox.isTrue === 1 ? "green" : "red");
     }
+
+    // console.log(...tasks.filter(()=>tasks.date == props.date));
+    // console.log(tasks.date);
+    // console.log(props.date)
+    // console.log("--filtered tasks--");
+
+    // console.log(tasks.filter(()=>tasks.date == props.date && tasks.iconName == props.iconName && tasks.time == props.time && tasks.type == props.type))
+    // const medicine = JSON.parse(data);
+    // console.log("---tasks.isTrue---");
+    // console.log(tasks[0].isTrue);
+    // setColor(tasks.isTrue ? "green" : "red");
   }, []);
 
-  useEffect(()=>{
-    returnData();
-  }, [])
+  useEffect(() => {
+    colorSetting();
+  }, []);
 
   return (
-    <MaterialCommunityIcons
-      name={props.iconName}
-      style={{ color }}
-      size={50}
-    />
+    <MaterialCommunityIcons name={props.iconName} style={{ color }} size={50} />
   );
 };
 
@@ -89,18 +106,20 @@ const OneWeekIconContents = (props) => {
             <View>
               <Text style={{ textAlign: "center" }}>점심</Text>
               <Icons
-              iconName={props.iconName}
-              date={week.date}
-              time={"Afternoon"}
-              type={props.type} />
+                iconName={props.iconName}
+                date={week.date}
+                time={"Afternoon"}
+                type={props.type}
+              />
             </View>
             <View>
               <Text style={{ textAlign: "center" }}>저녁</Text>
               <Icons
-              iconName={props.iconName}
-              date={week.date}
-              time={"Evening"}
-              type={props.type} />
+                iconName={props.iconName}
+                date={week.date}
+                time={"Evening"}
+                type={props.type}
+              />
             </View>
           </View>
         ))}
@@ -131,19 +150,16 @@ const CardView = (props) => {
 
 const Medicine = () => {
   // Redux 사용 위한 부분
-  
+
   // useCallback과 useEffect를 활용하여 최초 렌더링시에 데이터 수령하여 로딩
-  const returnTask = useCallback(async() => {
-    const tasks = await useSelector(state => state.tasks);
-    return tasks;
-  })
+  // const returnTask = useCallback(async() => {
+  //   const tasks = await useSelector(state => state.tasks);
+  //   return tasks;
+  // })
 
-  useEffect(()=>{
-    returnTask();
-  }, [])
-
-  console.log("useSelector로 넘겨받은 tasks")
-  console.log(tasks)
+  // useEffect(()=>{
+  //   returnTask();
+  // }, [])
 
   // 현재 key라는 변수가 정의되지 않음.
   // const isExistTask = tasks.filter(item => item.key == key).length > 0 ? true : false;

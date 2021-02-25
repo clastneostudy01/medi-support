@@ -28,11 +28,10 @@ const Details = ({ route, navigation }) => {
 
   // ====================Redux 환경 구축=========================== //
   const dispatch = useDispatch();
-  const tasks = useSelector(state => state.tasks);
-  
+  const tasks = useSelector((state) => state.tasks);
+
   // const isUpdatedTask = tasks.filter(item => item.key).length > 0 ? true : false;
   // console.log(isUpdatedTask);
-
 
   // {
   //   date: moment().format("MM/DD"),
@@ -126,7 +125,7 @@ const Details = ({ route, navigation }) => {
               <TouchableOpacity
                 style={{ backgroundColor: "green" }}
                 onPress={() => {
-                  dispatch(addTask(data));
+                  dispatch(addTask({ date: date, time: time, type: item.type, isTrue: 1 }));
                   toggleOverlay();
                 }}
               >
@@ -138,46 +137,45 @@ const Details = ({ route, navigation }) => {
               <TouchableOpacity
                 style={{ backgroundColor: "red" }}
                 onPress={() => {
+                  // dispatch(removeTask(
+                  //   AsyncStorage.getItem(moment().format("MM/DD")+"_"+time+"_"+item.type, (err, result) => {
+                  //     try {
+                  //       const week = JSON.parse(result);
+                  //       return week;
+                  //       // console.log(week);
+                  //     } catch (e) {
+                  //       console.error(e);
+                  //     }})
+                  // ));
 
-                  dispatch(removeTask(
-                    AsyncStorage.getItem(moment().format("MM/DD")+"_"+time+"_"+item.type, (err, result) => {
-                      try {
-                        const week = JSON.parse(result);
-                        return week;
-                        // console.log(week);
-                      } catch (e) {
-                        console.error(e);
-                      }})
-                  ));
-
-                  AsyncStorage.setItem(
-                    moment().format("MM/DD") + "_" + time + "_" + item.type,
-                    JSON.stringify({
-                      date: moment().format("MM/DD"),
-                      time: time,
-                      type: item.type,
-                      isTrue: 0,
-                    }),
-                    // () => {
-                    //   console.log(
-                    //     AsyncStorage.getItem(
-                    //       moment().format("MM/DD") +
-                    //         "_" +
-                    //         time +
-                    //         "_" +
-                    //         item.type,
-                    //       (err, result) => {
-                    //         try {
-                    //           const week = JSON.parse(result);
-                    //           console.log(week);
-                    //         } catch (e) {
-                    //           console.error(e);
-                    //         }
-                    //       }
-                    //     )
-                    //   );
-                    // }
-                  );
+                  // AsyncStorage.setItem(
+                  //   moment().format("MM/DD") + "_" + time + "_" + item.type,
+                  //   JSON.stringify({
+                  //     date: moment().format("MM/DD"),
+                  //     time: time,
+                  //     type: item.type,
+                  //     isTrue: 0,
+                  //   }),
+                  //   // () => {
+                  //   //   console.log(
+                  //   //     AsyncStorage.getItem(
+                  //   //       moment().format("MM/DD") +
+                  //   //         "_" +
+                  //   //         time +
+                  //   //         "_" +
+                  //   //         item.type,
+                  //   //       (err, result) => {
+                  //   //         try {
+                  //   //           const week = JSON.parse(result);
+                  //   //           console.log(week);
+                  //   //         } catch (e) {
+                  //   //           console.error(e);
+                  //   //         }
+                  //   //       }
+                  //   //     )
+                  //   //   );
+                  //   // }
+                  // );
                   toggleOverlay();
                 }}
               >
