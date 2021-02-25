@@ -8,7 +8,7 @@ import "moment/locale/ko";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addTask, removeTask } from "../redux/actions/tasks";
+import { addTask, unDoneTask } from "../redux/actions/tasks";
 
 import { LISTDATA } from "../shared/list";
 
@@ -18,6 +18,8 @@ const Details = ({ route, navigation }) => {
 
   const [visible, setVisible] = useState(false);
   const [time, setTime] = useState("");
+
+  const today = moment().format("MM/DD");
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -125,7 +127,7 @@ const Details = ({ route, navigation }) => {
               <TouchableOpacity
                 style={{ backgroundColor: "green" }}
                 onPress={() => {
-                  dispatch(addTask({ date: date, time: time, type: item.type, isTrue: 1 }));
+                  dispatch(addTask([{date: today, time: time, type: item.type, isTrue: 1}]));
                   toggleOverlay();
                 }}
               >
@@ -137,45 +139,7 @@ const Details = ({ route, navigation }) => {
               <TouchableOpacity
                 style={{ backgroundColor: "red" }}
                 onPress={() => {
-                  // dispatch(removeTask(
-                  //   AsyncStorage.getItem(moment().format("MM/DD")+"_"+time+"_"+item.type, (err, result) => {
-                  //     try {
-                  //       const week = JSON.parse(result);
-                  //       return week;
-                  //       // console.log(week);
-                  //     } catch (e) {
-                  //       console.error(e);
-                  //     }})
-                  // ));
-
-                  // AsyncStorage.setItem(
-                  //   moment().format("MM/DD") + "_" + time + "_" + item.type,
-                  //   JSON.stringify({
-                  //     date: moment().format("MM/DD"),
-                  //     time: time,
-                  //     type: item.type,
-                  //     isTrue: 0,
-                  //   }),
-                  //   // () => {
-                  //   //   console.log(
-                  //   //     AsyncStorage.getItem(
-                  //   //       moment().format("MM/DD") +
-                  //   //         "_" +
-                  //   //         time +
-                  //   //         "_" +
-                  //   //         item.type,
-                  //   //       (err, result) => {
-                  //   //         try {
-                  //   //           const week = JSON.parse(result);
-                  //   //           console.log(week);
-                  //   //         } catch (e) {
-                  //   //           console.error(e);
-                  //   //         }
-                  //   //       }
-                  //   //     )
-                  //   //   );
-                  //   // }
-                  // );
+                  dispatch(unDoneTask({date: today, time: time, type: item.type}));
                   toggleOverlay();
                 }}
               >

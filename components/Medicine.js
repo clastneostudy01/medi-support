@@ -18,54 +18,25 @@ for (let i = 6; i >= 0; i--) {
   weekDate.push({ date: moment().subtract(i, "days").format("MM/DD") });
 }
 
-const Icons = (props) => {
-  const [color, setColor] = useState("black");
+const Icons = ({stateBox, iconName}) => {
+  // console.log("--icon stateBox--")
+  // console.log(stateBox)
 
-  const tasks = useSelector((state) => state.tasks);
-
-  const colorSetting = useCallback(async () => {
-    const tasksBox = {
-      ...tasks.filter(
-        (item) =>
-          item.date == props.date &&
-          item.time == props.time &&
-          item.type == props.type
-      )[0],
-    };
-    console.log("tasksBox");
-    console.log(tasksBox);
-    console.log(tasksBox.length);
-
-    if (tasksBox.isTrue === undefined) {
-      console.log("---Color data---");
-      setColor("black");
-    } else {
-      console.log("---...tasks---");
-      setColor(tasksBox.isTrue === 1 ? "green" : "red");
-    }
-
-    // console.log(...tasks.filter(()=>tasks.date == props.date));
-    // console.log(tasks.date);
-    // console.log(props.date)
-    // console.log("--filtered tasks--");
-
-    // console.log(tasks.filter(()=>tasks.date == props.date && tasks.iconName == props.iconName && tasks.time == props.time && tasks.type == props.type))
-    // const medicine = JSON.parse(data);
-    // console.log("---tasks.isTrue---");
-    // console.log(tasks[0].isTrue);
-    // setColor(tasks.isTrue ? "green" : "red");
-  }, []);
-
-  useEffect(() => {
-    colorSetting();
-  }, []);
+  const color = stateBox.length == 0 ? "black" : (stateBox[0].isTrue ? "green" : 'red');
 
   return (
-    <MaterialCommunityIcons name={props.iconName} style={{ color }} size={50} />
+    <MaterialCommunityIcons name={iconName} style={{ color }} size={50} onPress={() => console.log(props)} />
   );
 };
 
-const OneWeekIconContents = (props) => {
+const OneWeekIconContents = ({iconName, type}) => {
+
+  const stateBox = useSelector(state => 
+    state.tasks.filter(item=>item.type == type)
+  );
+  // console.log(`--stateBox(${type})--`)
+  // console.log(stateBox)
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -97,28 +68,31 @@ const OneWeekIconContents = (props) => {
             <View>
               <Text style={{ textAlign: "center" }}>아침</Text>
               <Icons
-                iconName={props.iconName}
+                iconName={iconName}
                 date={week.date}
                 time={"Morning"}
-                type={props.type}
+                type={type}
+                stateBox={stateBox.filter(item=> item.date == week.date && item.time == "Morning")}
               />
             </View>
             <View>
               <Text style={{ textAlign: "center" }}>점심</Text>
               <Icons
-                iconName={props.iconName}
+                iconName={iconName}
                 date={week.date}
                 time={"Afternoon"}
-                type={props.type}
+                type={type}
+                stateBox={stateBox.filter(item=> item.date == week.date && item.time == "Afternoon")}                
               />
             </View>
             <View>
               <Text style={{ textAlign: "center" }}>저녁</Text>
               <Icons
-                iconName={props.iconName}
+                iconName={iconName}
                 date={week.date}
                 time={"Evening"}
-                type={props.type}
+                type={type}
+                stateBox={stateBox.filter(item=> item.date == week.date && item.time == "Evening")}                
               />
             </View>
           </View>
@@ -128,11 +102,11 @@ const OneWeekIconContents = (props) => {
   );
 };
 
-const CardView = (props) => {
+const CardView = ({title, type, iconName}) => {
   return (
     <View>
       <Card>
-        <Card.Title style={{ fontSize: 30 }}>{props.title}</Card.Title>
+        <Card.Title style={{ fontSize: 30 }}>{title}</Card.Title>
         <Card.Divider />
         <View
           style={{
@@ -141,7 +115,7 @@ const CardView = (props) => {
             alignItems: "center",
           }}
         >
-          <OneWeekIconContents iconName={props.iconName} type={props.type} />
+          <OneWeekIconContents iconName={iconName} type={type}  />
         </View>
       </Card>
     </View>
@@ -149,6 +123,10 @@ const CardView = (props) => {
 };
 
 const Medicine = () => {
+
+  // const stateBox = useSelector(state => state.tasks);
+  // console.log("--stateBox--")
+  // console.log(stateBox)
   // Redux 사용 위한 부분
 
   // useCallback과 useEffect를 활용하여 최초 렌더링시에 데이터 수령하여 로딩
@@ -172,9 +150,9 @@ const Medicine = () => {
         <CardView
           title={"컨디션"}
           iconName={"hospital-box-outline"}
-          type={"Condition"}
-        />
-        <CardView title={"운동"} iconName={"run"} type={"Exercise"} />
+          type={"Condition"}/>
+        <CardView 
+          title={"운동"} iconName={"run"} type={"Exercise"} />
       </ScrollView>
     </View>
   );

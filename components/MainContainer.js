@@ -13,7 +13,7 @@ import DrugInfo from "./DrugInfo";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 

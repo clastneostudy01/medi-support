@@ -5,6 +5,11 @@ export const addTask = ((payload) => ({
   payload,
 }));
 
+export const unDoneTask = ((payload) => ({
+  type: "UNDONE_TASK",
+  payload,
+}));
+
 export const removeTask = ((payload) => ({
   type: "REMOVE_TASK",
   payload,
