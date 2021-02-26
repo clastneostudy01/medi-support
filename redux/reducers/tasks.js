@@ -54,9 +54,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 const tasks = (state = dataBox, action) => {
   switch (action.type) {
     case "ADD_TASK_SUCCEEDED":
-      console.log("--ADD_TASK--");
+      console.log("--ADD_TASK_SUCCEEDED--");
       console.log(...state, {...action.payload}[0]);
-      return [
+      return[ 
         ...state,
         {
           ...action.payload,
@@ -87,7 +87,7 @@ const tasks = (state = dataBox, action) => {
       // ];
     case "FETCH_TASKS_SUCCEEDED":
       console.log("FETCH_TASKS_SUCCEEDED")
-      console.log(...action.payload);
+      console.log([...action.payload]);
       return [...action.payload];
 
 

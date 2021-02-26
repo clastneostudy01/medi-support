@@ -20,7 +20,7 @@ function* addTask(action) {
     yield put({type:"ADD_TASK_SUCCEEDED", payload: action.payload});  
   } catch (error) {
     yield put({type:"SHOW_ALERT", msg:error.message});  
-  }  
+  }
 }
 
 function* removeTask(action){
