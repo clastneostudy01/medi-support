@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { Text, View } from "react-native";
+import React from 'react';
+import { View } from "react-native";
 import { ListItem, Avatar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Button, Overlay } from 'react-native-elements';
-
 import { LISTDATA } from '../shared/list';
 
 const Home = ({navigation}) => {

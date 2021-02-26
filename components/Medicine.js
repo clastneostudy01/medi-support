@@ -34,6 +34,8 @@ const OneWeekIconContents = ({iconName, type}) => {
   const stateBox = useSelector(state => 
     state.tasks.filter(item=>item.type == type)
   );
+  console.log("--stateBox--")
+  console.log(stateBox);
 
   const styles = StyleSheet.create({
     container: {

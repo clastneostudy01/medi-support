@@ -49,7 +49,7 @@ const Details = ({ route, navigation }) => {
           style={{
             flex: 1,
             justifyContent: "center",
-            alignItems: "center"
+            // alignItems: "center"
           }}
         >
           <Button
@@ -58,10 +58,6 @@ const Details = ({ route, navigation }) => {
               timeSetting("Morning");
             }}
             buttonStyle={{
-              borderRadius: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              marginBottom: 0,
               backgroundColor: "tomato",
             }}
             title="Morning"
@@ -73,10 +69,6 @@ const Details = ({ route, navigation }) => {
               timeSetting("Afternoon");
             }}
             buttonStyle={{
-              borderRadius: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              marginBottom: 0,
               backgroundColor: "tomato",
             }}
             title="Afternoon"
@@ -88,10 +80,6 @@ const Details = ({ route, navigation }) => {
               timeSetting("Evening");
             }}
             buttonStyle={{
-              borderRadius: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              marginBottom: 0,
               backgroundColor: "tomato",
             }}
             title="Evening"

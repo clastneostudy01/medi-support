@@ -1,13 +1,14 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import originalData from '../../api/list'
 import api from '../../api/tasks'
 
 function* addTask(action) {
-  console.log("-- Saga: action --")
+  console.log("-- Saga: add action --")
   console.log(action);
 
-  // 서버 에러를 발생시킴
-  // id를 1로 세팅하여 id 중복오류가 발생되게 함
-  action.payload.id = 1;
+  // // 서버 에러를 발생시킴
+  // // id를 1로 세팅하여 id 중복오류가 발생되게 함
+  // action.payload.id = 1;
 
   // 1. back-end와 REST API 연동
   // yield call(비동기함수명, 매개변수, 매개변수...)
@@ -15,16 +16,21 @@ function* addTask(action) {
     const result = yield call(api.post, action.payload)
     console.log("-- Saga: api result --")
     console.log(result.data);
+    console.log("-- Saga: action.payload --")
+    console.log(action.payload);
+    console.log("-- yield put ADD_TASK_SUCCEEDED --");
+    console.log({type:"ADD_TASK_SUCCEEDED", payload: result.data})
+
 
     // 2. state를 변경하는 reducer 함수를 실행
-    yield put({type:"ADD_TASK_SUCCEEDED", payload: action.payload});  
+    yield put({type:"ADD_TASK_SUCCEEDED", payload: result.data});  
   } catch (error) {
     yield put({type:"SHOW_ALERT", msg:error.message});  
   }
 }
 
 function* removeTask(action){
-  console.log("-- Saga: action --")
+  console.log("-- Saga: remove action --")
   console.log(action);
   
   const result = yield call(api.delete, action.payload)
@@ -35,13 +41,25 @@ function* removeTask(action){
 }
 
 function* fetchTasks(action) {
-  console.log("-- Saga: action --")
+  console.log("-- Saga: fetch action --")
   console.log(action);  
   // 1. 비동기 함수 호출(API 연동)
+  const originResult = yield call(originalData.list);
+  console.log("-- Saga: origin Result --")
+  console.log(originResult.data);
+
+
   const result = yield call(api.list);
   console.log("-- Saga: api result --")
   console.log(result.data);
-    
+
+
+
+
+  const dataSummary = [...originResult.data, ...result.data];
+  console.log(dataSummary);
+
+
   // 2. dispatch를 실행하는 부분
   yield put({type:'FETCH_TASKS_SUCCEEDED', payload: result.data})
 }

@@ -53,15 +53,28 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 const tasks = (state = dataBox, action) => {
   switch (action.type) {
+    
+    
+    
+    
+    
+    
     case "ADD_TASK_SUCCEEDED":
       console.log("--ADD_TASK_SUCCEEDED--");
-      console.log(...state, {...action.payload}[0]);
+      console.log(...state, {...action.payload});
       return[ 
         ...state,
         {
           ...action.payload,
-        }[0],
+        },
       ];
+
+
+
+
+
+
+
     case "UNDONE_TASK_SUCCEEDED":
       console.log("--UNDONE_TASK_SUCCEEDED--");
       console.log(action.payload);
