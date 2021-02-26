@@ -7,3 +7,50 @@
 4. 기본데이터가 있고, 그 데이터를 기반으로 해서 추가/삭제하는 형태로 진행해야 할 것 같은데... 일단 그냥 빈 배열에 데이터를 추가하는것만 가능하니, 아예 기본데이터를 넣어둔 배열을 바탕으로 추가/삭제 진행하도록 정의해보자.
 
 5. 중복감지 안됨. 아마도 배열이 나뉘어 있기 때문인 듯 함.
+
+
+
+
+
+
+
+
+A.
+1. 데이터 형식 변경하여 fix
+2. 상동
+
+5. json server의 경우 post를 하면 기본적으로 id를 생성해서 넣어줌. 이는 관계형 DB라서 어쩔 수 없음. 현재처럼 무의미한 id대신에 id를 생성하여 넣어주는 생성자를 정의해서 사용하자.
+- ID의 경우 Dash를 사용하라. REST API를 활용하기 위해서는 어차피 URL에 데이터를 넣어줘야 하는데, Underscore는 URL에서는 사용하지 않음.
+- ID가 NaN 띄우면 json server가 새로 숫자를 부여해줌.
+- id: 텍스트 는 허용됨.
+
+  {
+    "id": "02/26-Af-Co",
+    "date": "02/26",
+    "time": "Afternoon",
+    "type": "Condition",
+    "isTrue": 1
+  },
+  {
+    "id": "02/26-Ev-Co",
+    "date": "02/26",
+    "time": "Evening",
+    "type": "Condition",
+    "isTrue": 1
+  },
+
+  dispatch(addTask({id: today-time.slice(0,2)-item.type.slice(0,2),date: today, time: time, type: item.type, isTrue: 1}));
+
+  id: YYYYMMDD + Time + Type
+  id: 20210226 + 1 + 01
+
+텍스트 형태로 넣어도 되고, 숫자를 임의부여해서 넣어도 될 듯.
+성능은 숫자형이 훨씬 나아보이긴 하는데.
+
+
+
+
+
+
+4. 기본 데이터는 어차피 DB파일에 넣으면 알아서 인식하니까, 사용자마다 템플릿 DB를 생성하도록 프로그래밍하면 해결되는 문제 아닌가?
+

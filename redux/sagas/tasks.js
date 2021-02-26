@@ -1,11 +1,11 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
 import originalData from '../../api/list'
 import api from '../../api/tasks'
 
 function* addTask(action) {
   console.log("-- Saga: add action --")
   console.log(action);
-
+   
   // // 서버 에러를 발생시킴
   // // id를 1로 세팅하여 id 중복오류가 발생되게 함
   // action.payload.id = 1;
@@ -43,22 +43,11 @@ function* removeTask(action){
 function* fetchTasks(action) {
   console.log("-- Saga: fetch action --")
   console.log(action);  
-  // 1. 비동기 함수 호출(API 연동)
-  const originResult = yield call(originalData.list);
-  console.log("-- Saga: origin Result --")
-  console.log(originResult.data);
 
-
+  // // 1. 비동기 함수 호출(API 연동)
   const result = yield call(api.list);
   console.log("-- Saga: api result --")
   console.log(result.data);
-
-
-
-
-  const dataSummary = [...originResult.data, ...result.data];
-  console.log(dataSummary);
-
 
   // 2. dispatch를 실행하는 부분
   yield put({type:'FETCH_TASKS_SUCCEEDED', payload: result.data})

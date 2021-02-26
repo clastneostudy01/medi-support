@@ -104,7 +104,7 @@ const Details = ({ route, navigation }) => {
               <TouchableOpacity
                 style={{ backgroundColor: "green" }}
                 onPress={() => {
-                  dispatch(addTask({date: today, time: time, type: item.type, isTrue: 1}));
+                  dispatch(addTask({id: today+"-"+time.slice(0,2)+"-"+item.type.slice(0,2),date: today, time: time, type: item.type, isTrue: 1}));
                   toggleOverlay();
                 }}
               >
