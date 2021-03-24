@@ -7,7 +7,7 @@ const DrugInfo = () => {
   return (
     <WebView
       source={{ uri: "https://nedrug.mfds.go.kr/index" }}
-      style={{width:"100%"}}
+      style={{ width: "100%" }}
       scalesPageToFit={true}
     />
   );

@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 import { View } from "react-native";
-import { ListItem, Avatar } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
-import { LISTDATA } from '../shared/list';
+import { ListItem, Avatar } from "react-native-elements";
+import { ScrollView } from "react-native-gesture-handler";
+import { LISTDATA } from "../shared/list";
 
-const Home = ({navigation}) => {
-
+const Home = ({ navigation }) => {
   const list = LISTDATA;
   // console.log(list);
 
   return (
-    <View 
-      style={{ 
-        flex: 1, 
-        justifyContent: "center", 
-        // alignItems: "center" 
-        }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        // alignItems: "center"
+      }}
+    >
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,

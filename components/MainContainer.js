@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,10 +10,11 @@ import Home from "./Home";
 import Medicine from "./Medicine";
 import Details from "./Details";
 import DrugInfo from "./DrugInfo";
+import HWTest from "./HWTest";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
@@ -61,21 +62,21 @@ const HomeStackScreen = () => {
 export default function Main() {
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("--main is mounted--");
-    dispatch({type:"FETCH_TASKS"})
-  }, [])
+    dispatch({ type: "FETCH_TASKS" });
+  }, []);
 
   return (
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen name="기록" component={HomeStackScreen} />
-            <Tab.Screen name="통계" component={Medicine} />
-            {/* <Tab.Screen name="약국지도" component={MapByWebView}/> */}
-            <Tab.Screen name="e약은요" component={DrugInfo} />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={screenOptions}>
+          <Tab.Screen name="기록" component={HomeStackScreen} />
+          <Tab.Screen name="통계" component={Medicine} />
+          <Tab.Screen name="약국지도" component={HWTest} />
+          <Tab.Screen name="e약은요" component={DrugInfo} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

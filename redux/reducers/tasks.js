@@ -42,15 +42,13 @@
 
 // dispatch를 손대는 부분의 현재의 item데이터는 list.js에서 불러오는 데이터. 이 데이터에 손을 대봤자 아무런 의미가 없는데.
 
-
 // 매개변수 위치가 변경되면 에러남. sonalint 노란줄은 무시해라.
 const tasks = (state = [], action) => {
   switch (action.type) {
-    
     case "ADD_TASK_SUCCEEDED":
       console.log("--ADD_TASK_SUCCEEDED--");
-      console.log(...state, {...action.payload});
-      return[ 
+      console.log(...state, { ...action.payload });
+      return [
         ...state,
         {
           ...action.payload,
@@ -60,31 +58,31 @@ const tasks = (state = [], action) => {
     case "UNDONE_TASK_SUCCEEDED":
       console.log("--UNDONE_TASK_SUCCEEDED--");
       console.log(action.payload);
-      return state.map((item)=> {
-          if(item.date == action.payload.date 
-              && item.time == action.payload.time 
-              && item.type == action.payload.type){
-            item.isTrue = 0
+      return state.map((item) => {
+        if (
+          item.date == action.payload.date &&
+          item.time == action.payload.time &&
+          item.type == action.payload.type
+        ) {
+          item.isTrue = 0;
 
-            console.log('--exist item--')
-            return item;
-          } else {
-            
-            return item;
-          }
-        })
+          console.log("--exist item--");
+          return item;
+        } else {
+          return item;
+        }
+      });
 
-      // return[
-      //   ...state,
-      //   {
-      //     ...action.payload,
-      //   }[0]
-      // ];
+    // return[
+    //   ...state,
+    //   {
+    //     ...action.payload,
+    //   }[0]
+    // ];
     case "FETCH_TASKS_SUCCEEDED":
-      console.log("FETCH_TASKS_SUCCEEDED")
+      console.log("FETCH_TASKS_SUCCEEDED");
       console.log([...action.payload]);
       return [...action.payload];
-
 
     case "REMOVE_TASK":
       return [...state.filter((item) => item.id != action.payload)];

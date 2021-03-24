@@ -18,23 +18,27 @@ for (let i = 6; i >= 0; i--) {
   weekDate.push({ date: moment().subtract(i, "days").format("MM/DD") });
 }
 
-const Icons = ({stateBox, iconName}) => {
-  const color = stateBox.length == 0 ? "black" : (stateBox[0].isTrue ? "green" : 'red');
+const Icons = ({ stateBox, iconName }) => {
+  const color =
+    stateBox.length == 0 ? "black" : stateBox[0].isTrue ? "green" : "red";
 
   return (
-    <MaterialCommunityIcons name={iconName} style={{ color }} size={50} onPress={() => console.log(stateBox)} />
+    <MaterialCommunityIcons
+      name={iconName}
+      style={{ color }}
+      size={50}
+      onPress={() => console.log(stateBox)}
+    />
   );
 };
 
-const OneWeekIconContents = ({iconName, type}) => {
-
-
+const OneWeekIconContents = ({ iconName, type }) => {
   // stateBox에 데이터가 입력되고, 이것 자체가 state로 동작함.
   // stateBox에 변화가 생기면 전역적으로 상태가 공유.
-  const stateBox = useSelector(state => 
-    state.tasks.filter(item=>item.type == type)
+  const stateBox = useSelector((state) =>
+    state.tasks.filter((item) => item.type == type)
   );
-  console.log("--stateBox--")
+  console.log("--stateBox--");
   console.log(stateBox);
 
   const styles = StyleSheet.create({
@@ -72,7 +76,9 @@ const OneWeekIconContents = ({iconName, type}) => {
                 date={week.date}
                 time={"Morning"}
                 type={type}
-                stateBox={stateBox.filter(item=> item.date == week.date && item.time == "Morning")}
+                stateBox={stateBox.filter(
+                  (item) => item.date == week.date && item.time == "Morning"
+                )}
               />
             </View>
             <View>
@@ -82,7 +88,9 @@ const OneWeekIconContents = ({iconName, type}) => {
                 date={week.date}
                 time={"Afternoon"}
                 type={type}
-                stateBox={stateBox.filter(item=> item.date == week.date && item.time == "Afternoon")}                
+                stateBox={stateBox.filter(
+                  (item) => item.date == week.date && item.time == "Afternoon"
+                )}
               />
             </View>
             <View>
@@ -92,7 +100,9 @@ const OneWeekIconContents = ({iconName, type}) => {
                 date={week.date}
                 time={"Evening"}
                 type={type}
-                stateBox={stateBox.filter(item=> item.date == week.date && item.time == "Evening")}                
+                stateBox={stateBox.filter(
+                  (item) => item.date == week.date && item.time == "Evening"
+                )}
               />
             </View>
           </View>
@@ -102,7 +112,7 @@ const OneWeekIconContents = ({iconName, type}) => {
   );
 };
 
-const CardView = ({title, type, iconName}) => {
+const CardView = ({ title, type, iconName }) => {
   return (
     <View>
       <Card>
@@ -115,7 +125,7 @@ const CardView = ({title, type, iconName}) => {
             alignItems: "center",
           }}
         >
-          <OneWeekIconContents iconName={iconName} type={type}  />
+          <OneWeekIconContents iconName={iconName} type={type} />
         </View>
       </Card>
     </View>
@@ -130,9 +140,9 @@ const Medicine = () => {
         <CardView
           title={"컨디션"}
           iconName={"hospital-box-outline"}
-          type={"Condition"}/>
-        <CardView 
-          title={"운동"} iconName={"run"} type={"Exercise"} />
+          type={"Condition"}
+        />
+        <CardView title={"운동"} iconName={"run"} type={"Exercise"} />
       </ScrollView>
     </View>
   );
