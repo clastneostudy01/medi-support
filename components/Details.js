@@ -5,7 +5,7 @@ import { Card, Button, Icon, Overlay } from "react-native-elements";
 import moment from "moment";
 import "moment/locale/ko";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, unDoneTask } from "../redux/actions/tasks";
@@ -140,6 +140,12 @@ const Details = ({ route, navigation }) => {
                 </Text>
               </TouchableOpacity>
             </View>
+                {/* <TouchableOpacity onPress={()=>{
+                  console.log(stateBox);
+                }}>
+                  <Text>"Store조회용"</Text>
+                </TouchableOpacity> */}
+
 
             {/* <TouchableOpacity
               onPress={() => {
