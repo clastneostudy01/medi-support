@@ -1,5 +1,5 @@
 import { call, put, select, takeEvery, takeLatest } from "redux-saga/effects";
-import originalData from "../../api/list";
+// import originalData from "../../api/list";
 import api from "../../api/tasks";
 
 function* addTask(action) {
@@ -46,7 +46,7 @@ function* fetchTasks(action) {
   // // 1. 비동기 함수 호출(API 연동)
   const result = yield call(api.list);
   console.log("-- Saga: api result --");
-  console.log(result.data);
+  // console.log(result.data);
 
   // 2. dispatch를 실행하는 부분
   yield put({ type: "FETCH_TASKS_SUCCEEDED", payload: result.data });
