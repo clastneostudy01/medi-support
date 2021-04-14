@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { Card } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { ScrollView, State } from "react-native-gesture-handler";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ScrollView } from "react-native-gesture-handler";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import moment from "moment";
 import "moment/locale/ko";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { setStatusBarBackgroundColor } from "expo-status-bar";
-import { useLinkProps } from "@react-navigation/native";
+// import { setStatusBarBackgroundColor } from "expo-status-bar";
+// import { useLinkProps } from "@react-navigation/native";
 
 export const weekDate = [];
 for (let i = 6; i >= 0; i--) {
@@ -20,7 +20,7 @@ for (let i = 6; i >= 0; i--) {
 
 const Icons = ({ stateBox, iconName }) => {
   const color =
-    stateBox.length == 0 ? "black" : stateBox[0].isTrue ? "green" : "red";
+    stateBox.length == 0 ? "black" : stateBox[0].isTrue == 1 ? "green" : "red";
 
   return (
     <MaterialCommunityIcons
@@ -38,8 +38,8 @@ const OneWeekIconContents = ({ iconName, type }) => {
   const stateBox = useSelector((state) =>
     state.tasks.filter((item) => item.type == type)
   );
-  console.log("--stateBox--");
-  console.log(stateBox);
+  // console.log("--stateBox--");
+  // console.log(stateBox);
 
   const styles = StyleSheet.create({
     container: {

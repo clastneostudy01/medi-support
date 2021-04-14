@@ -8,9 +8,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Home from "./Home";
 import Medicine from "./Medicine";
+import MapByWebView from "./MapByWebView";
 import Details from "./Details";
 import DrugInfo from "./DrugInfo";
-import HWTest from "./HWTest";
+// import HWTest from "./HWTest";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -73,7 +74,7 @@ export default function Main() {
         <Tab.Navigator screenOptions={screenOptions}>
           <Tab.Screen name="기록" component={HomeStackScreen} />
           <Tab.Screen name="통계" component={Medicine} />
-          <Tab.Screen name="약국지도" component={HWTest} />
+          <Tab.Screen name="약국지도" component={MapByWebView} />
           <Tab.Screen name="e약은요" component={DrugInfo} />
         </Tab.Navigator>
       </NavigationContainer>

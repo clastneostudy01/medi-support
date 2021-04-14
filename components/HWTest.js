@@ -41,14 +41,14 @@ const HWTest = () => {
         // See error code charts below.
         console.log(error.code, error.message);
       },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 1000 }
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 5000 }
     );
   }, []);
 
   useEffect(() => {
     requestPermissions();
 
-    setUpdateIntervalForType(SensorTypes.accelerometer, 1000); // 1000ms
+    setUpdateIntervalForType(SensorTypes.accelerometer, 5000); // 1000ms
     const subscription = accelerometer.subscribe(({ x, y, z, timestamp }) =>
       console.log({ x, y, z, timestamp })
     );
