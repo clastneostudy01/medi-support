@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import { LISTDATA } from "../shared/list";
-
+  
 const Home = ({ navigation }) => {
   const list = LISTDATA;
   // console.log(list);

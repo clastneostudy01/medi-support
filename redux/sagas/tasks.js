@@ -20,7 +20,7 @@ function* addTask(action) {
     console.log(action.payload);
     console.log("-- yield put ADD_TASK_SUCCEEDED --");
     console.log({ type: "ADD_TASK_SUCCEEDED", payload: result.data });
-
+  
     // 2. state를 변경하는 reducer 함수를 실행
     yield put({ type: "ADD_TASK_SUCCEEDED", payload: result.data });
   } catch (error) {

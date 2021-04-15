@@ -4,13 +4,13 @@ import Geolocation from "@react-native-community/geolocation";
 
 const MapByWebView = () => {
   const [position, setPosition] = useState({
-    // 학원위치
+    // 학원위치  
     latitude: 37.6013907,
     longitude: 127.0806112,
   });
 
   const locationLogged = useRef(false);
-
+  
   useEffect(() => {
     Geolocation.getCurrentPosition((pos) => {
       const crd = pos.coords;

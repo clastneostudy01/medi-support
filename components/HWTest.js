@@ -45,7 +45,7 @@ const HWTest = () => {
     );
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {  
     requestPermissions();
 
     setUpdateIntervalForType(SensorTypes.accelerometer, 5000); // 1000ms

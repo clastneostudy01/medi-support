@@ -80,7 +80,7 @@ const OneWeekIconContents = ({ iconName, type }) => {
                   (item) => item.date == week.date && item.time == "Morning"
                 )}
               />
-            </View>
+            </View>  
             <View>
               <Text style={{ textAlign: "center" }}>점심</Text>
               <Icons
