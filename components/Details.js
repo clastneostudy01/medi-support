@@ -130,7 +130,18 @@ const Details = ({ route, navigation }) => {
                 style={{ backgroundColor: "red" }}
                 onPress={() => {
                   dispatch(
-                    unDoneTask({ date: today, time: time, type: item.type })
+                    addTask({
+                      id:
+                        today +
+                        "-" +
+                        time.slice(0, 2) +
+                        "-" +
+                        item.type.slice(0, 2),
+                      date: today,
+                      time: time,
+                      type: item.type,
+                      isTrue: 0,
+                    })
                   );
                   toggleOverlay();
                 }}
