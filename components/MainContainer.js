@@ -67,7 +67,7 @@ export default function Main() {
     console.log("--main is mounted--");
     dispatch({ type: "FETCH_TASKS" });
   }, []);
-
+  
   return (
     <SafeAreaProvider>
       <NavigationContainer>

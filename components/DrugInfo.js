@@ -14,3 +14,4 @@ const DrugInfo = () => {
 };
 
 export default DrugInfo;
+  

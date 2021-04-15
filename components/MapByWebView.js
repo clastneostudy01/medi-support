@@ -10,8 +10,8 @@ const MapByWebView = () => {
   });
 
   const locationLogged = useRef(false);
-  
-  useEffect(() => {
+    
+  useEffect(() => {  
     Geolocation.getCurrentPosition((pos) => {
       const crd = pos.coords;
       setPosition({

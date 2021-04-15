@@ -31,14 +31,14 @@ const Details = ({ route, navigation }) => {
   // ====================Redux 환경 구축=========================== //
   const dispatch = useDispatch();
 
-  return (
+  return (  
     <View
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
       }}
-    >
+    >  
       <Card>
         <Card.Title>{item.title}</Card.Title>
         <Card.Divider />
